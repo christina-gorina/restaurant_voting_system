@@ -1,16 +1,17 @@
 DELETE FROM dishes;
 DELETE FROM restaurants;
 DELETE FROM users;
+
 ALTER SEQUENCE global_seq RESTART WITH 100000;
 
-INSERT INTO users (name)
-VALUES ('User'),
-       ('Admin');
+INSERT INTO users (name, email)
+VALUES ('User', 'user@gmail.com'),
+       ('Admin', 'admin@gmail.com');
 
-INSERT INTO restaurants (name, votes)
-VALUES ('Итальянский ресторан', 0),
-       ('Суши бар', 0),
-       ('Китайский ресторан', 0);
+INSERT INTO restaurants (name)
+VALUES ('Итальянский ресторан'),
+       ('Суши бар'),
+       ('Китайский ресторан');
 
 INSERT INTO dishes (name, price, date, restaurant)
 VALUES ('Паста', 890, '2020-07-04', 100003),
@@ -25,3 +26,9 @@ VALUES ('Паста', 890, '2020-07-04', 100003),
         ('Утра по пекински', 1500, '2020-07-04', 100003),
         ('Димсамы', 350, '2020-07-04', 100003),
         ('Китайский суп', 520, '2020-07-05', 100003);
+
+INSERT INTO votes (restaurant, user, date_time)
+VALUES (100003, 100000, '2020-07-07 10:00:00'),
+       (100002, 100001, '2020-07-07 10:00:00'),
+       (100002, 100000, '2020-07-07 10:00:00'),
+       (100004, 100001, '2020-07-07 12:00:00');

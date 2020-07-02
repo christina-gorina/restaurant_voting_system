@@ -1,9 +1,12 @@
+import org.christinagorina.model.Restaurant;
+import org.christinagorina.repository.RestaurantRepositoryInterface;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class MainApp {
     private static final Logger log = LoggerFactory.getLogger(MainApp.class);
@@ -11,8 +14,13 @@ public class MainApp {
         log.info("MainApp");
         System.out.println("Start");
 
-        try (ConfigurableApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/spring-db.xml")) {
+        try (ConfigurableApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/spring-ap.xml", "spring/spring-db.xml")) {
             System.out.println("Bean definition names: " + Arrays.toString(appCtx.getBeanDefinitionNames()));
+
+            RestaurantRepositoryInterface repository = appCtx.getBean(RestaurantRepositoryInterface.class);
+            List<Restaurant> restaurantList = repository.getAll();
+            System.out.println(restaurantList);
+
         }
     }
 }
