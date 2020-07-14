@@ -1,5 +1,5 @@
 import org.christinagorina.model.Restaurant;
-import org.christinagorina.repository.RestaurantRepositoryInterface;
+import org.christinagorina.repository.RestaurantRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -17,10 +17,13 @@ public class MainApp {
         try (ConfigurableApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/spring-ap.xml", "spring/spring-db.xml")) {
             System.out.println("Bean definition names: " + Arrays.toString(appCtx.getBeanDefinitionNames()));
 
-            RestaurantRepositoryInterface repository = appCtx.getBean(RestaurantRepositoryInterface.class);
+            RestaurantRepository repository = appCtx.getBean(RestaurantRepository.class);
             List<Restaurant> restaurantList = repository.getAll();
             System.out.println(restaurantList);
 
+            /*Restaurant restaurant = repository.get(100002);
+            System.out.println(restaurant);
+            System.out.println(restaurant.getDishes());*/
         }
     }
 }

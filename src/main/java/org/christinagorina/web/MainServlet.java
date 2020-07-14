@@ -12,18 +12,16 @@ import java.io.IOException;
 
 public class MainServlet extends HttpServlet {
     private ConfigurableApplicationContext springContext;
-    private ConfigurableApplicationContext appCtx ;
+    private ConfigurableApplicationContext appCtx;
+
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
         appCtx = springContext = new ClassPathXmlApplicationContext("spring/spring-db.xml");
-
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-
-
         request.getRequestDispatcher("/main.jsp").forward(request, response);
     }
 }

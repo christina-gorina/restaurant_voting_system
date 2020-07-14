@@ -14,8 +14,8 @@ public class Dish extends AbstractNamedEntity{
     @Column(name = "date", nullable = false)
     private LocalDate date;
 
-    @ManyToOne(cascade = {CascadeType.REMOVE}, fetch = FetchType.LAZY)
-    @JoinColumn(name="restaurant")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="restaurant", nullable = false)
     @NotNull
     private Restaurant restaurant;
 

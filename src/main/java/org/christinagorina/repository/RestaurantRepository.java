@@ -4,6 +4,11 @@ import org.christinagorina.model.Restaurant;
 
 import java.util.List;
 
-public interface RestaurantRepositoryInterface {
+public interface RestaurantRepository {
+
+    Restaurant getWithDishes(int id);
+
     List<Restaurant> getAll();
+
+    public Restaurant get(int id);
 }
