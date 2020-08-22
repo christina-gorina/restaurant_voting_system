@@ -1,5 +1,8 @@
 package org.christinagorina.model;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -12,22 +15,22 @@ public class Dish extends AbstractNamedEntity{
     private int price;
 
     @Column(name = "date", nullable = false)
-    private LocalDate date;
+    public LocalDate date;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="restaurant", nullable = false)
     @NotNull
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Restaurant restaurant;
 
     public Dish() {
 
     }
 
-    public Dish(Integer id, String name, LocalDate date, int price, Restaurant restaurant) {
+    public Dish(Integer id, String name, LocalDate date, int price) {
         super(id, name);
         this.date = date;
         this.price = price;
-        this.restaurant = restaurant;
     }
 
     /*public int getPrice() {
@@ -37,12 +40,12 @@ public class Dish extends AbstractNamedEntity{
     public void setPrice(int price) {
         this.price = price;
     }
-
-    public Date getDate() {
+*/
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
@@ -52,9 +55,9 @@ public class Dish extends AbstractNamedEntity{
 
     public void setRestaurant(Restaurant restaurant) {
         this.restaurant = restaurant;
-    }*/
+    }
 
-    @Override
+    /*@Override
     public String toString() {
         return "Dish{" +
                 "id=" + id +
@@ -63,5 +66,5 @@ public class Dish extends AbstractNamedEntity{
                 ", date=" + date +
                 ", restaurant=" + restaurant +
                 '}';
-    }
+    }*/
 }

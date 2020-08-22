@@ -6,7 +6,6 @@ import javax.validation.constraints.Size;
 
 @MappedSuperclass
 public abstract class AbstractNamedEntity extends AbstractBaseEntity{
-    public static final int START_SEQ = 100000;
 
     @NotBlank
     @Size(min = 2, max = 255)

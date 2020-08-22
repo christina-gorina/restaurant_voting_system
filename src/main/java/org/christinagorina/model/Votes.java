@@ -1,20 +1,25 @@
 package org.christinagorina.model;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "votes")
+@Table(name = "votes", uniqueConstraints = {@UniqueConstraint(columnNames = {"restaurant", "user"}, name = "user_restaurant_unique_vote_idx")})
 public class Votes extends AbstractBaseEntity{
-    @ManyToOne(cascade = {CascadeType.REMOVE}, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user")
     @NotNull
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
-    @ManyToOne(cascade = {CascadeType.REMOVE}, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="restaurant")
     @NotNull
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Restaurant restaurant;
 
     @Column(name = "date_time", nullable = false)
@@ -24,14 +29,14 @@ public class Votes extends AbstractBaseEntity{
 
     }
 
-    public Votes (Integer id, Restaurant restaurant, User user, LocalDateTime date_time){
+    public Votes (Integer id, Restaurant restaurant, User user, LocalDateTime dateTime){
         super(id);
         this.restaurant = restaurant;
         this.user = user;
-        this.dateTime = date_time;
+        this.dateTime = dateTime;
     }
 
-    /*public Restaurant getRestaurant() {
+    public Restaurant getRestaurant() {
         return restaurant;
     }
 
@@ -39,21 +44,23 @@ public class Votes extends AbstractBaseEntity{
         this.restaurant = restaurant;
     }
 
-    public Timestamp getDateTime() {
+    public LocalDateTime getDateTime() {
         return dateTime;
     }
 
-    public void setDateTime(Timestamp dateTime) {
+    public void setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
-    }*/
+    }
 
     @Override
     public String toString() {
         return "Votes{" +
                 "id=" + id +
-                ", restaurant=" + restaurant +
-                ", user=" + user +
+                /*", restaurant=" + restaurant +*/
+                /*", user=" + user +*/
                 ", dateTime=" + dateTime +
                 '}';
     }
+
+
 }

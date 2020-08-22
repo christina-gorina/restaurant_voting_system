@@ -1,42 +1,81 @@
 package org.christinagorina.repository;
 
-import org.christinagorina.model.Dish;
 import org.christinagorina.model.Restaurant;
+import org.christinagorina.util.DateTimeUtil;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Repository
-@Transactional(readOnly = true)
 public class RestaurantRepositoryImpl implements RestaurantRepository {
     private static final Sort SORT_BY_NAME = Sort.by("name");
     private final CrudRestaurantRepository crudRestaurantRepository;
-
-    @PersistenceContext
-    private EntityManager em;
 
     public RestaurantRepositoryImpl(CrudRestaurantRepository crudRestaurantRepository) {
         this.crudRestaurantRepository = crudRestaurantRepository;
     }
 
     @Override
-    public Restaurant getWithDishes(int id) {
-        return crudRestaurantRepository.getWithMeals(id);
+    public List<Restaurant> getAll(){
+        return crudRestaurantRepository.findAll(SORT_BY_NAME);
     }
 
     @Override
     public Restaurant get(@Param("id") int id){
         return crudRestaurantRepository.findById(id).orElse(null);
-
     }
 
     @Override
-    public List<Restaurant> getAll(){
-        return crudRestaurantRepository.findAll(SORT_BY_NAME);
+    public List<Restaurant>  getAllWithVotesByDate(LocalDateTime fromDate, LocalDateTime toDate) {
+        return crudRestaurantRepository.getAllWithVotesByDate(fromDate, toDate);
     }
+
+    @Override
+    public boolean delete(int id) {
+        return crudRestaurantRepository.delete(id) != 0;
+    }
+
+    @Override
+    public Restaurant save(Restaurant restaurant){
+        return crudRestaurantRepository.save(restaurant);
+    };
+
+    @Override
+    public Restaurant getWithDishesByDate(int id, LocalDate date) {
+        return crudRestaurantRepository.getWithDishesByDate(id, date);
+    }
+
+    @Override
+    public Restaurant getWithDishesByDateAndVotesByDate(int id, LocalDate date, LocalDateTime fromDate, LocalDateTime toDate) {
+        return crudRestaurantRepository.getWithDishesByDateAndVotesByDate(id, date, fromDate, toDate);
+    }
+
+    @Override
+    public Restaurant getWithVotesByDate(int id, LocalDateTime fromDate, LocalDateTime toDate) {
+        return crudRestaurantRepository.getWithVotesByDate(id, fromDate, toDate);
+    }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
