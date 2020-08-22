@@ -34,6 +34,6 @@ public class VoteService {
     }
 
     public List<Votes> getByDateAndRestaurant(int restaurantId, LocalDate date) {
-        return repository.getByDateAndRestaurant(restaurantId, DateTimeUtil.atStartOfDay(date), DateTimeUtil.atStartOfNextDay(date));
+        return repository.getAllByDateAndRestaurant(restaurantId, DateTimeUtil.atStartOfDay(date), DateTimeUtil.atStartOfNextDay(date));
     }
 }

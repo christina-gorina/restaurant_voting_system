@@ -1,9 +1,6 @@
-/notes.txt
 .idea
-
 out
 target
 *.iml
 log
-/mark.txt
 hsqldb

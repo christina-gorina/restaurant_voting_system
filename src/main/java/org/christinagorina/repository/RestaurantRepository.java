@@ -12,11 +12,13 @@ public interface RestaurantRepository {
 
     boolean delete(int id);
 
-    public Restaurant get(int id);
+    Restaurant get(int id);
 
     List<Restaurant> getAll();
 
     List<Restaurant> getAllWithVotesByDate(LocalDateTime fromDate, LocalDateTime toDate);
+
+    List<Restaurant> getAllWithDishesByDate(LocalDate date);
 
     Restaurant getWithDishesByDate(int id, LocalDate date);
 

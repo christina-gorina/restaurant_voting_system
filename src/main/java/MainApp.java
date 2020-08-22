@@ -1,19 +1,13 @@
-import org.christinagorina.model.Dish;
-import org.christinagorina.model.Restaurant;
 import org.christinagorina.model.Votes;
 import org.christinagorina.repository.DishRepository;
 import org.christinagorina.repository.RestaurantRepository;
 import org.christinagorina.repository.VoteRepository;
-import org.christinagorina.service.RestaurantService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Month;
 import java.util.Arrays;
 import java.util.List;
 
@@ -80,7 +74,7 @@ public class MainApp {
             System.out.println(res);
             System.out.println(res.getVotes());*/
 
-            List<Votes> vt = voteRepository.getByDateAndRestaurant(100011, LocalDateTime.of(2020, 7, 3, 2020, 7, 3), LocalDateTime.of(2020, 7, 3, 2020, 7, 4));
+            List<Votes> vt = voteRepository.getAllByDateAndRestaurant(100011, LocalDateTime.of(2020, 7, 3, 2020, 7, 3), LocalDateTime.of(2020, 7, 3, 2020, 7, 4));
             vt.forEach(System.out::println);
 
         }

@@ -38,6 +38,10 @@ public class DishService {
 
     public List<Dish> getByDateAndRestaurant(int restaurantId, LocalDate date) {
         Assert.notNull(date, "date must not be null");
-        return repository.getByDateAndRestaurant(restaurantId, date);
+        return repository.getAllByDateAndRestaurant(restaurantId, date);
+    }
+
+    public List<Dish> getAllByRestaurant(int restaurantId) {
+        return repository.getAllByRestaurant(restaurantId);
     }
 }

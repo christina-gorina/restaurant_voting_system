@@ -1,16 +1,13 @@
 package org.christinagorina.repository;
 
 import org.christinagorina.model.Restaurant;
-import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Month;
 import java.util.List;
 
 @Transactional(readOnly = true)
@@ -23,6 +20,9 @@ public interface CrudRestaurantRepository extends JpaRepository<Restaurant, Inte
 
     @Query("SELECT r FROM Restaurant r JOIN FETCH r.votes vote WHERE vote.dateTime >=?1 AND vote.dateTime <?2 ORDER BY r.name DESC")
     List<Restaurant> getAllWithVotesByDate(LocalDateTime fromDate, LocalDateTime toDate);
+
+    @Query("SELECT r FROM Restaurant r JOIN FETCH r.dishes dish WHERE dish.date =?1 ORDER BY r.name DESC")
+    List<Restaurant> getAllWithDishesByDate(LocalDate date);
 
     @Query("SELECT r FROM Restaurant r JOIN FETCH r.dishes dish WHERE r.id=?1 AND dish.date=?2 ORDER BY r.name DESC")
     Restaurant getWithDishesByDate(int id, LocalDate date);

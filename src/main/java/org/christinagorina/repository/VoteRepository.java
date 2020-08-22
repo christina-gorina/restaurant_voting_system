@@ -8,7 +8,7 @@ import java.util.List;
 public interface VoteRepository {
     Votes save(Votes vote, int restaurantId);
 
-    List<Votes> getByDateAndRestaurant(int restaurantId, LocalDateTime fromDate, LocalDateTime toDate);
+    List<Votes> getAllByDateAndRestaurant(int restaurantId, LocalDateTime fromDate, LocalDateTime toDate);
 
     Votes get(int id, int restaurantId);
 }

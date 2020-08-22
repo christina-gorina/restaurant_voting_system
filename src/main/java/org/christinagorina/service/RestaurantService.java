@@ -33,6 +33,11 @@ public class RestaurantService {
         return repository.getAllWithVotesByDate(DateTimeUtil.atStartOfDay(date), DateTimeUtil.atStartOfNextDay(date));
     }
 
+    public List<Restaurant> getAllWithDishesByDate(LocalDate date) {
+        Assert.notNull(date, "date must not be null");
+        return repository.getAllWithDishesByDate(date);
+    }
+
     public void delete(int id) {
         checkNotFoundWithId(repository.delete(id), id);
     }

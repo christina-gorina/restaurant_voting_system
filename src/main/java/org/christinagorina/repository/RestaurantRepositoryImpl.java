@@ -1,14 +1,12 @@
 package org.christinagorina.repository;
 
 import org.christinagorina.model.Restaurant;
-import org.christinagorina.util.DateTimeUtil;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Repository
@@ -21,18 +19,23 @@ public class RestaurantRepositoryImpl implements RestaurantRepository {
     }
 
     @Override
-    public List<Restaurant> getAll(){
+    public List<Restaurant> getAll(){//
         return crudRestaurantRepository.findAll(SORT_BY_NAME);
     }
 
     @Override
-    public Restaurant get(@Param("id") int id){
+    public Restaurant get(@Param("id") int id){ //
         return crudRestaurantRepository.findById(id).orElse(null);
     }
 
     @Override
     public List<Restaurant>  getAllWithVotesByDate(LocalDateTime fromDate, LocalDateTime toDate) {
         return crudRestaurantRepository.getAllWithVotesByDate(fromDate, toDate);
+    }
+
+    @Override
+    public List<Restaurant> getAllWithDishesByDate(LocalDate date) {
+        return crudRestaurantRepository.getAllWithDishesByDate(date);
     }
 
     @Override

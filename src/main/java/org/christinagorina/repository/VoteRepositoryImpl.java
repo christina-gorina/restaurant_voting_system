@@ -35,7 +35,7 @@ public class VoteRepositoryImpl implements VoteRepository{
     };
 
     @Override
-    public List<Votes> getByDateAndRestaurant(int restaurantId, LocalDateTime fromDate, LocalDateTime toDate) {
+    public List<Votes> getAllByDateAndRestaurant(int restaurantId, LocalDateTime fromDate, LocalDateTime toDate) {
         return crudVoteRepository.getByDateAndRestaurant(restaurantId, fromDate, toDate);
     }
 }
