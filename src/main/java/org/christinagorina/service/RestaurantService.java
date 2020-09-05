@@ -24,7 +24,7 @@ public class RestaurantService {
         return repository.getAll();
     }
 
-    public Restaurant get(int id){
+    public Restaurant get(int id) {
         return checkNotFoundWithId(repository.get(id), id);
     }
 
@@ -51,6 +51,7 @@ public class RestaurantService {
         Assert.notNull(restaurant, "restaurant must not be null");
         checkNotFoundWithId(repository.save(restaurant), restaurant.id());
     }
+
 
     public Restaurant getWithDishesByDate(int id, LocalDate date) {
         Assert.notNull(date, "date must not be null");

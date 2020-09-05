@@ -43,10 +43,5 @@ public class DishRepositoryImpl implements DishRepository{
     public List<Dish> getAllByDateAndRestaurant(int restaurantId, LocalDate date) {
         return crudDishRepository.getByDateAndRestaurant(restaurantId, date);
     }
-
-    @Override
-    public List<Dish> getAllByRestaurant(int restaurantId) {
-        return crudDishRepository.getAllByRestaurant(restaurantId);
-    }
 }
 

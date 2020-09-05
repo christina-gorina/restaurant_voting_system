@@ -1,3 +1,4 @@
+import org.christinagorina.model.Restaurant;
 import org.christinagorina.model.Votes;
 import org.christinagorina.repository.DishRepository;
 import org.christinagorina.repository.RestaurantRepository;
@@ -7,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
@@ -27,9 +29,9 @@ public class MainApp {
             DishRepository dishRepository = appCtx.getBean(DishRepository.class);
             VoteRepository voteRepository = appCtx.getBean(VoteRepository.class);
 
-            /*Restaurant restaurant = restaurantRepository.get(100012);
-            System.out.println(restaurant);*/
-
+           /* Restaurant restaurant = restaurantRepository.get(100012);
+            System.out.println(restaurant);
+*/
             /*List<Restaurant> restaurantList = restaurantRepository.getAll();
             System.out.println(restaurantList);*/
 
@@ -37,13 +39,13 @@ public class MainApp {
             System.out.println(restaurantList);
             System.out.println(restaurantList.getDishes());*/
 
-            /*List<Restaurant> restaurantList = restaurantRepository.getAllWithVotesByDate(LocalDate.of(2020, 7, 3));
+            List<Restaurant> restaurantList = restaurantRepository.getAllWithVotesByDate(LocalDateTime.of(2020, 7, 3, 2, 7, 3), LocalDateTime.of(2020, 7, 3, 3, 7, 4));
             restaurantList.forEach(r -> {
                 System.out.println(r);
                 System.out.println("+");
                 System.out.println(r.getVotes());
                 System.out.println("------------------------");
-            });*/
+            });
 
             //service.delete(100011);
 
@@ -61,10 +63,10 @@ public class MainApp {
             /*List<Dish> dishes = dishRepository.getByDateAndRestaurant(100011, LocalDate.of(2020, 7, 3));
             dishes.forEach(System.out::println);*/
 
-            /*Restaurant res = restaurantRepository.getWithDishesByDate(100011, LocalDate.of(2020, 7, 3));
+           /* Restaurant res = restaurantRepository.getWithDishesByDate(100011, LocalDate.of(2020, 7, 3));
             System.out.println(res);
-            System.out.println(res.getDishes());*/
-
+            System.out.println(res.getDishes());
+*/
             /*Restaurant res = restaurantRepository.getWithDishesByDateAndVotesByDate(100011, LocalDate.of(2020, 7, 3));
             System.out.println(res);
             System.out.println(res.getDishes());
@@ -74,9 +76,9 @@ public class MainApp {
             System.out.println(res);
             System.out.println(res.getVotes());*/
 
-            List<Votes> vt = voteRepository.getAllByDateAndRestaurant(100011, LocalDateTime.of(2020, 7, 3, 2020, 7, 3), LocalDateTime.of(2020, 7, 3, 2020, 7, 4));
+          /*  List<Votes> vt = voteRepository.getAllByDateAndRestaurant(100011, LocalDateTime.of(2020, 7, 3, 2020, 7, 3), LocalDateTime.of(2020, 7, 3, 2020, 7, 4));
             vt.forEach(System.out::println);
-
+*/
         }
     }
 }

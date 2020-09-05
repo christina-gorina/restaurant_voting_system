@@ -3,9 +3,6 @@ package org.christinagorina.model;
 import javax.persistence.*;
 import java.util.Set;
 
-@NamedQueries({
-        @NamedQuery(name = Restaurant.GET_ALL, query = "SELECT r FROM Restaurant r ORDER BY r.name"),
-})
 @Entity
 @Table(name = "restaurants")
 public class Restaurant extends AbstractNamedEntity{

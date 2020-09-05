@@ -19,17 +19,17 @@ public class RestaurantRepositoryImpl implements RestaurantRepository {
     }
 
     @Override
-    public List<Restaurant> getAll(){//
+    public List<Restaurant> getAll() {
         return crudRestaurantRepository.findAll(SORT_BY_NAME);
     }
 
     @Override
-    public Restaurant get(@Param("id") int id){ //
+    public Restaurant get(@Param("id") int id) {
         return crudRestaurantRepository.findById(id).orElse(null);
     }
 
     @Override
-    public List<Restaurant>  getAllWithVotesByDate(LocalDateTime fromDate, LocalDateTime toDate) {
+    public List<Restaurant> getAllWithVotesByDate(LocalDateTime fromDate, LocalDateTime toDate) {
         return crudRestaurantRepository.getAllWithVotesByDate(fromDate, toDate);
     }
 
@@ -44,9 +44,9 @@ public class RestaurantRepositoryImpl implements RestaurantRepository {
     }
 
     @Override
-    public Restaurant save(Restaurant restaurant){
+    public Restaurant save(Restaurant restaurant) {
         return crudRestaurantRepository.save(restaurant);
-    };
+    }
 
     @Override
     public Restaurant getWithDishesByDate(int id, LocalDate date) {
@@ -62,7 +62,6 @@ public class RestaurantRepositoryImpl implements RestaurantRepository {
     public Restaurant getWithVotesByDate(int id, LocalDateTime fromDate, LocalDateTime toDate) {
         return crudRestaurantRepository.getWithVotesByDate(id, fromDate, toDate);
     }
-
 }
 
 

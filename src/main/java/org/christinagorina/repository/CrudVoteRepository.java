@@ -14,4 +14,5 @@ public interface CrudVoteRepository extends JpaRepository<Votes, Integer> {
 
     @Query("SELECT v FROM Votes v WHERE v.restaurant.id =:restaurantId AND v.dateTime >=:fromDate AND v.dateTime <:toDate")
     List<Votes> getByDateAndRestaurant(@Param("restaurantId") int restaurantId, @Param("fromDate") LocalDateTime fromDate, @Param("toDate") LocalDateTime toDate);
+
 }
