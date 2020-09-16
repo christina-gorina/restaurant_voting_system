@@ -1,5 +1,4 @@
 import org.christinagorina.model.Restaurant;
-import org.christinagorina.model.Votes;
 import org.christinagorina.repository.DishRepository;
 import org.christinagorina.repository.RestaurantRepository;
 import org.christinagorina.repository.VoteRepository;
@@ -22,16 +21,16 @@ public class MainApp {
         log.info("MainApp");
         System.out.println("Start");
 
-        try (ConfigurableApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/spring-ap.xml", "spring/spring-db.xml")) {
+        try (ConfigurableApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/spring-app.xml", "spring/spring-db.xml")) {
             System.out.println("Bean definition names: " + Arrays.toString(appCtx.getBeanDefinitionNames()));
 
             RestaurantRepository restaurantRepository = appCtx.getBean(RestaurantRepository.class);
             DishRepository dishRepository = appCtx.getBean(DishRepository.class);
             VoteRepository voteRepository = appCtx.getBean(VoteRepository.class);
 
-           /* Restaurant restaurant = restaurantRepository.get(100012);
-            System.out.println(restaurant);
-*/
+            //Restaurant restaurant = restaurantRepository.get(100012);
+            //System.out.println(restaurant);
+
             /*List<Restaurant> restaurantList = restaurantRepository.getAll();
             System.out.println(restaurantList);*/
 
@@ -39,13 +38,13 @@ public class MainApp {
             System.out.println(restaurantList);
             System.out.println(restaurantList.getDishes());*/
 
-            List<Restaurant> restaurantList = restaurantRepository.getAllWithVotesByDate(LocalDateTime.of(2020, 7, 3, 2, 7, 3), LocalDateTime.of(2020, 7, 3, 3, 7, 4));
-            restaurantList.forEach(r -> {
-                System.out.println(r);
-                System.out.println("+");
-                System.out.println(r.getVotes());
-                System.out.println("------------------------");
-            });
+          //  List<Restaurant> restaurantList = restaurantRepository.getAllWithVotesByDate(LocalDateTime.of(2020, 7, 3, 2, 7, 3), LocalDateTime.of(2020, 7, 3, 3, 7, 4));
+          //  restaurantList.forEach(r -> {
+          //      System.out.println(r);
+          //      System.out.println("+");
+          //      System.out.println(r.getVotes());
+          //      System.out.println("------------------------");
+           // });
 
             //service.delete(100011);
 
@@ -63,10 +62,10 @@ public class MainApp {
             /*List<Dish> dishes = dishRepository.getByDateAndRestaurant(100011, LocalDate.of(2020, 7, 3));
             dishes.forEach(System.out::println);*/
 
-           /* Restaurant res = restaurantRepository.getWithDishesByDate(100011, LocalDate.of(2020, 7, 3));
+            Restaurant res = restaurantRepository.getWithDishesByDate(100012, LocalDate.of(2020, 7, 5));
             System.out.println(res);
             System.out.println(res.getDishes());
-*/
+
             /*Restaurant res = restaurantRepository.getWithDishesByDateAndVotesByDate(100011, LocalDate.of(2020, 7, 3));
             System.out.println(res);
             System.out.println(res.getDishes());

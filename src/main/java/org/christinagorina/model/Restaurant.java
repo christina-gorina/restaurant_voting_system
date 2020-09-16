@@ -1,5 +1,8 @@
 package org.christinagorina.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -9,9 +12,12 @@ public class Restaurant extends AbstractNamedEntity{
     public static final String GET_ALL = "Restaurant.getAll";
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
+    @JsonIgnore
+    @JsonManagedReference
     private Set<Votes> votes;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
+    @JsonManagedReference
     private Set<Dish> dishes;
 
     public Restaurant() {

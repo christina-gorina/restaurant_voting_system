@@ -1,5 +1,6 @@
 package org.christinagorina.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -21,6 +22,7 @@ public class Dish extends AbstractNamedEntity{
     @JoinColumn(name="restaurant", nullable = false)
     @NotNull
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonBackReference
     private Restaurant restaurant;
 
     public Dish() {

@@ -1,5 +1,6 @@
 package org.christinagorina.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -20,6 +21,7 @@ public class Votes extends AbstractBaseEntity{
     @JoinColumn(name="restaurant")
     @NotNull
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonBackReference
     private Restaurant restaurant;
 
     @Column(name = "date_time", nullable = false)
