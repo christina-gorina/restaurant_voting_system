@@ -5,6 +5,7 @@ import org.christinagorina.model.Restaurant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 public interface RestaurantRepository {
 
@@ -16,9 +17,9 @@ public interface RestaurantRepository {
 
     List<Restaurant> getAll();
 
-    List<Restaurant> getAllWithVotesByDate(LocalDateTime fromDate, LocalDateTime toDate);
+    Set<Restaurant> getAllWithVotesByDate(LocalDateTime fromDate, LocalDateTime toDate);
 
-    List<Restaurant> getAllWithDishesByDate(LocalDate date);
+    Set<Restaurant> getAllWithDishesByDate(LocalDate date);
 
     Restaurant getWithDishesByDate(int id, LocalDate date);
 

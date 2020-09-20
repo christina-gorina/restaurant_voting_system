@@ -8,6 +8,7 @@ import org.springframework.util.Assert;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 import static org.christinagorina.util.ValidationUtil.checkNotFoundWithId;
 
@@ -28,12 +29,12 @@ public class RestaurantService {
         return checkNotFoundWithId(repository.get(id), id);
     }
 
-    public List<Restaurant> getAllWithVotesByDate(LocalDate date) {
+    public Set<Restaurant> getAllWithVotesByDate(LocalDate date) {
         Assert.notNull(date, "date must not be null");
         return repository.getAllWithVotesByDate(DateTimeUtil.atStartOfDay(date), DateTimeUtil.atStartOfNextDay(date));
     }
 
-    public List<Restaurant> getAllWithDishesByDate(LocalDate date) {
+    public Set<Restaurant> getAllWithDishesByDate(LocalDate date) {
         Assert.notNull(date, "date must not be null");
         return repository.getAllWithDishesByDate(date);
     }
@@ -51,7 +52,6 @@ public class RestaurantService {
         Assert.notNull(restaurant, "restaurant must not be null");
         checkNotFoundWithId(repository.save(restaurant), restaurant.id());
     }
-
 
     public Restaurant getWithDishesByDate(int id, LocalDate date) {
         Assert.notNull(date, "date must not be null");

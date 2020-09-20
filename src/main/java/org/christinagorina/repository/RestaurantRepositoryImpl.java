@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 @Repository
 public class RestaurantRepositoryImpl implements RestaurantRepository {
@@ -29,12 +30,12 @@ public class RestaurantRepositoryImpl implements RestaurantRepository {
     }
 
     @Override
-    public List<Restaurant> getAllWithVotesByDate(LocalDateTime fromDate, LocalDateTime toDate) {
+    public Set<Restaurant> getAllWithVotesByDate(LocalDateTime fromDate, LocalDateTime toDate) {
         return crudRestaurantRepository.getAllWithVotesByDate(fromDate, toDate);
     }
 
     @Override
-    public List<Restaurant> getAllWithDishesByDate(LocalDate date) {
+    public Set<Restaurant> getAllWithDishesByDate(LocalDate date) {
         return crudRestaurantRepository.getAllWithDishesByDate(date);
     }
 

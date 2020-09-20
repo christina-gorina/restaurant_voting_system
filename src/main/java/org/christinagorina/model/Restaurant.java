@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Set;
 
 @Entity
@@ -20,20 +21,14 @@ public class Restaurant extends AbstractNamedEntity{
     @JsonManagedReference
     private Set<Dish> dishes;
 
-    public Restaurant() {
+    public Restaurant() {}
 
+    public Restaurant(String name) {
+        this(null, name);
     }
 
     public Restaurant(Integer id, String name) {
         super(id, name);
-    }
-
-    @Override
-    public String toString() {
-        return "Restaurant{" +
-                "id=" + id +
-                ", name=" + name +
-                '}';
     }
 
     public Set<Votes> getVotes() {
@@ -52,4 +47,13 @@ public class Restaurant extends AbstractNamedEntity{
         this.dishes = dishes;
     }
 
+    @Override
+    public String toString() {
+        return "Restaurant{" +
+                "id =" + id +
+                ", name =" + name +
+                ", dishes =" + dishes +
+                ", votes =" + votes +
+                '}';
+    }
 }
