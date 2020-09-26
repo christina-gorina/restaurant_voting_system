@@ -5,7 +5,7 @@ import org.christinagorina.model.Dish;
 import java.time.LocalDate;
 import java.util.Set;
 
-public class RestaurantTo {
+public class RestaurantTo extends BaseTo {
     private Integer id;
     private String name;
     private Set<Dish> dishes;
@@ -13,19 +13,11 @@ public class RestaurantTo {
     private LocalDate date;
 
     public RestaurantTo(Integer id, String name, Set<Dish> dishes, LocalDate date, Integer countOfVotes) {
-        this.id = id;
+        super(id);
         this.name = name;
         this.dishes = dishes;
         this.date = date;
         this.countOfVotes = countOfVotes;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getName() {

@@ -8,6 +8,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Collection;
+import java.util.Date;
 import java.util.EnumSet;
 import java.util.Set;
 
@@ -24,6 +25,13 @@ public class User extends AbstractNamedEntity{
     @Size(min = 5, max = 100)
     private String password;
 
+    @Column(name = "enabled", nullable = false, columnDefinition = "bool default true")
+    private boolean enabled = true;
+
+    @Column(name = "registered", nullable = false, columnDefinition = "timestamp default now()")
+    @NotNull
+    private Date registered = new Date();
+
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"),
             uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "role"}, name = "user_roles_unique_idx")})
@@ -36,11 +44,17 @@ public class User extends AbstractNamedEntity{
 
     }
 
-    public User(Integer id, String name, String email, String password, Collection<Role> roles) {
+    public User(Integer id, String name, String email, String password, boolean enabled, Date registered, Collection<Role> roles) {
         super(id, name);
         this.email = email;
         this.password = password;
+        this.enabled = enabled;
+        this.registered = registered;
         setRoles(roles);
+    }
+
+    public User(Integer id, String name, String email, String password, Role role, Role... roles) {
+        this(id, name, email, password,true, new Date(), EnumSet.of(role, roles));
     }
 
     public String getEmail() {
@@ -66,6 +80,21 @@ public class User extends AbstractNamedEntity{
     public void setRoles(Collection<Role> roles) {
         this.roles = CollectionUtils.isEmpty(roles) ? EnumSet.noneOf(Role.class) : EnumSet.copyOf(roles);
     }
+    public Date getRegistered() {
+        return registered;
+    }
+
+    public void setRegistered(Date registered) {
+        this.registered = registered;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
 
     @Override
     public String toString() {
@@ -73,6 +102,7 @@ public class User extends AbstractNamedEntity{
                 "id=" + id +
                 ", email=" + email +
                 ", roles=" + roles +
+                ", enabled=" + enabled +
                 '}';
     }
 }

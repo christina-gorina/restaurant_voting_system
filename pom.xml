@@ -33,6 +33,9 @@
         <spring-data-jpa.version>2.3.1.RELEASE</spring-data-jpa.version>
         <spring.version>5.2.6.RELEASE</spring.version>
 
+        <!-- Security -->
+        <spring.security.version>5.3.3.RELEASE</spring.security.version>
+
         <!-- Hibernate -->
         <hibernate.version>5.4.18.Final</hibernate.version>
         <hibernate-validator.version>6.1.5.Final</hibernate-validator.version>
@@ -121,6 +124,18 @@
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-jpa</artifactId>
             <version>${spring-data-jpa.version}</version>
+        </dependency>
+
+        <!--security-->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>${spring.security.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>${spring.security.version}</version>
         </dependency>
 
         <!--- ORM -->

@@ -2,6 +2,7 @@ package org.christinagorina.util;
 
 import javassist.NotFoundException;
 import org.christinagorina.model.AbstractBaseEntity;
+import org.christinagorina.to.BaseTo;
 
 public class ValidationUtil {
     private ValidationUtil() {
@@ -38,6 +39,14 @@ public class ValidationUtil {
             entity.setId(id);
         } else if (entity.id() != id) {
             throw new IllegalArgumentException(entity + " must be with id=" + id);
+        }
+    }
+
+    public static void assureIdConsistent(BaseTo beanTo, int id) {
+        if (beanTo.isNew()) {
+            beanTo.setId(id);
+        } else if (beanTo.id() != id) {
+            throw new IllegalArgumentException(beanTo + " must be with id=" + id);
         }
     }
 }

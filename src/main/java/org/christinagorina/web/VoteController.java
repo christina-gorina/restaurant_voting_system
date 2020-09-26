@@ -18,9 +18,9 @@ import static org.christinagorina.util.ValidationUtil.assureIdConsistent;
 import static org.christinagorina.util.ValidationUtil.checkNew;
 
 @RestController
-@RequestMapping(value = VoteController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = VoteController.REST_URL_USER, produces = MediaType.APPLICATION_JSON_VALUE)
 public class VoteController {
-    static final String REST_URL = "/rest/votes";
+    static final String REST_URL_USER = "/rest/user/votes";
 
     @Autowired
     private VoteService service;
@@ -28,9 +28,9 @@ public class VoteController {
     @PostMapping(value = "/{restaurantId}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Votes> createWithLocation(@RequestBody Votes vote, @PathVariable int restaurantId) {
         checkNew(vote);
-        Votes created =  service.create(vote, restaurantId);
+        Votes created = service.create(vote, restaurantId);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path(REST_URL + "/{id}")
+                .path(REST_URL_USER + "/{restaurantId}/{id}")
                 .buildAndExpand(created.getId()).toUri();
         return ResponseEntity.created(uriOfNewResource).body(created);
     }

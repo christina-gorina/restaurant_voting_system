@@ -20,70 +20,71 @@ import java.util.Set;
 import static org.christinagorina.util.ValidationUtil.*;
 
 @RestController
-@RequestMapping(value = RestaurantController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 public class RestaurantController {
-    static final String REST_URL = "/rest/restaurants";
+    static final String REST_URL_ADMIN = "/rest/admin/restaurants";
+    static final String REST_URL_USER = "/rest/user/restaurants";
 
     @Autowired
     private RestaurantService service;
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = REST_URL_ADMIN, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Restaurant> createWithLocation(@RequestBody Restaurant restaurant) {
         checkNew(restaurant);
         Restaurant created =  service.create(restaurant);
 
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path(REST_URL + "/{id}")
+                .path(REST_URL_ADMIN + "/{id}")
                 .buildAndExpand(created.getId()).toUri();
         return ResponseEntity.created(uriOfNewResource).body(created);
     }
 
-    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = REST_URL_ADMIN + "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void update(@RequestBody Restaurant restaurant, @PathVariable int id) {
         assureIdConsistent(restaurant, id);
         service.update(restaurant);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping(REST_URL_ADMIN + "/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable int id) {
         service.delete(id);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping(REST_URL_USER + "/{id}")
     public Restaurant get(@PathVariable int id) {
         return service.get(id);
     }
 
-    @GetMapping("/{id}/{curDate}/dishes")
+    @GetMapping(REST_URL_USER + "/{id}/{curDate}/dishes")
     public Restaurant getWithDishesByDate(@PathVariable int id, @PathVariable  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime curDate) {
         return service.getWithDishesByDate(id, curDate.toLocalDate());
     }
 
-    @GetMapping("/{id}/{curDate}/votes")
+    @GetMapping(REST_URL_USER + "/{id}/{curDate}/votes")
     public RestaurantTo getWithVotesByDate(@PathVariable int id, @PathVariable  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime curDate) {
         Restaurant restaurant = service.getWithVotesByDate(id, curDate.toLocalDate());
         return RestaurantUtil.getTo(restaurant, curDate.toLocalDate());
     }
 
-    @GetMapping("/{id}/{curDate}/dishesandvotes")
+    @GetMapping(REST_URL_USER + "/{id}/{curDate}/dishesandvotes")
     public RestaurantTo getWithDishesByDateAndVotesByDate(@PathVariable int id, @PathVariable  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime curDate) {
         Restaurant restaurant = service.getWithDishesByDateAndVotesByDate(id, curDate.toLocalDate());
         return RestaurantUtil.getTo(restaurant, curDate.toLocalDate());
     }
 
-    @GetMapping
+    @GetMapping(REST_URL_USER)
     public List<Restaurant> getAll() {
         return service.getAll();
     }
 
-    @GetMapping("/{curDate}/dishes")
+    @GetMapping(REST_URL_USER + "/{curDate}/dishes")
     public Set<Restaurant> getAllWithDishesByDate(@PathVariable  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime curDate) {
         return service.getAllWithDishesByDate(curDate.toLocalDate());
     }
 
-    @GetMapping("/{curDate}/votes")
+    @GetMapping(REST_URL_USER + "/{curDate}/votes")
     public List<RestaurantTo> getAllWithVotesByDate(@PathVariable  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime curDate) {
         Set<Restaurant> restaurants = service.getAllWithVotesByDate(curDate.toLocalDate());
         return RestaurantUtil.getListTo(restaurants, curDate.toLocalDate());
