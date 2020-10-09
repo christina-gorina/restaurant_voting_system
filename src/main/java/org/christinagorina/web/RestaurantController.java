@@ -4,14 +4,18 @@ import org.christinagorina.model.Restaurant;
 import org.christinagorina.service.RestaurantService;
 import org.christinagorina.to.RestaurantTo;
 import org.christinagorina.util.RestaurantUtil;
+import org.christinagorina.util.ValidationUtil;
+import org.christinagorina.util.exeption.IllegalRequestDataException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -29,8 +33,10 @@ public class RestaurantController {
     private RestaurantService service;
 
     @PostMapping(value = REST_URL_ADMIN, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Restaurant> createWithLocation(@RequestBody Restaurant restaurant) {
-        checkNew(restaurant);
+    public ResponseEntity<Restaurant> createWithLocation(@Valid @RequestBody Restaurant restaurant, BindingResult result) {
+        if (result.hasErrors()) {
+            throw new IllegalRequestDataException(ValidationUtil.getErrorResponse(result));
+        }
         Restaurant created =  service.create(restaurant);
 
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()

@@ -2,20 +2,23 @@ package org.christinagorina.web;
 
 import org.christinagorina.model.Votes;
 import org.christinagorina.service.VoteService;
+import org.christinagorina.util.ValidationUtil;
+import org.christinagorina.util.exeption.IllegalRequestDataException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.christinagorina.util.ValidationUtil.assureIdConsistent;
-import static org.christinagorina.util.ValidationUtil.checkNew;
 
 @RestController
 @RequestMapping(value = VoteController.REST_URL_USER, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -26,8 +29,10 @@ public class VoteController {
     private VoteService service;
 
     @PostMapping(value = "/{restaurantId}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Votes> createWithLocation(@RequestBody Votes vote, @PathVariable int restaurantId) {
-        checkNew(vote);
+    public ResponseEntity<Votes> createWithLocation(@Valid @RequestBody Votes vote, @PathVariable int restaurantId, BindingResult result) {
+        if (result.hasErrors()) {
+            throw new IllegalRequestDataException(ValidationUtil.getErrorResponse(result));
+        }
         Votes created = service.create(vote, restaurantId);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL_USER + "/{restaurantId}/{id}")

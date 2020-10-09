@@ -1,13 +1,16 @@
 package org.christinagorina.web;
 
-
 import org.christinagorina.model.User;
+import org.christinagorina.util.ValidationUtil;
+import org.christinagorina.util.exeption.IllegalRequestDataException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -28,7 +31,10 @@ public class AdminUserController extends AbstractUserController{
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> createWithLocation(@RequestBody User user) {
+    public ResponseEntity<User> createWithLocation(@Valid @RequestBody User user, BindingResult result) {
+        if (result.hasErrors()) {
+            throw new IllegalRequestDataException(ValidationUtil.getErrorResponse(result));
+        }
         User created = super.create(user);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL + "/{id}")
@@ -61,5 +67,4 @@ public class AdminUserController extends AbstractUserController{
     public void enable(@PathVariable int id, @RequestParam boolean enabled) {
         super.enable(id, enabled);
     }
-
 }

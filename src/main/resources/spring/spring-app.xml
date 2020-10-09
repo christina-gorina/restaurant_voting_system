@@ -9,6 +9,7 @@
        http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
+    <import resource="spring-cache.xml"/>
     <import resource="spring-security.xml"/>
     <context:component-scan base-package="org.christinagorina.**.service"/>
 

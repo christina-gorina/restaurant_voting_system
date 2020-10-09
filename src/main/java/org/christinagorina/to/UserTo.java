@@ -1,6 +1,8 @@
 package org.christinagorina.to;
 
-public class UserTo extends BaseTo {
+import java.io.Serializable;
+
+public class UserTo extends BaseTo implements Serializable {
     protected Integer id;
 
     private String name;

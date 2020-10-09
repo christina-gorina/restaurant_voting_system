@@ -3,6 +3,10 @@ package org.christinagorina.util;
 import javassist.NotFoundException;
 import org.christinagorina.model.AbstractBaseEntity;
 import org.christinagorina.to.BaseTo;
+import org.christinagorina.util.exeption.IllegalRequestDataException;
+import org.springframework.validation.BindingResult;
+
+import java.util.stream.Collectors;
 
 public class ValidationUtil {
     private ValidationUtil() {
@@ -18,6 +22,12 @@ public class ValidationUtil {
         return object;
     }
 
+    public static void checkNew(AbstractBaseEntity bean) {
+        if (!bean.isNew()) {
+            throw new IllegalRequestDataException(bean + " must be new (id=null)");
+        }
+    }
+
     public static void checkException(boolean found, String msg) {
         if (!found) {
             try {
@@ -25,12 +35,6 @@ public class ValidationUtil {
             } catch (NotFoundException e) {
                 e.printStackTrace();
             }
-        }
-    }
-
-    public static void checkNew(AbstractBaseEntity entity) {
-        if (!entity.isNew()) {
-            throw new IllegalArgumentException(entity + " must be new (id=null)");
         }
     }
 
@@ -48,5 +52,21 @@ public class ValidationUtil {
         } else if (beanTo.id() != id) {
             throw new IllegalArgumentException(beanTo + " must be with id=" + id);
         }
+    }
+
+    public static Throwable getRootCause(Throwable t) {
+        Throwable result = t;
+        Throwable cause;
+
+        while (null != (cause = result.getCause()) && (result != cause)) {
+            result = cause;
+        }
+        return result;
+    }
+
+    public static String getErrorResponse(BindingResult result) {
+        return result.getFieldErrors().stream()
+                .map(fe -> String.format("[%s] %s", fe.getField(), fe.getDefaultMessage()))
+                .collect(Collectors.joining("<br>"));
     }
 }
