@@ -52,5 +52,6 @@ CREATE TABLE votes(
     FOREIGN KEY (restaurant) REFERENCES restaurants (id) ON DELETE CASCADE,
     FOREIGN KEY (user) REFERENCES users (id) ON DELETE CASCADE
 );
+
 CREATE UNIQUE INDEX user_restaurant_unique_vote_idx
-    ON votes (restaurant, user)
+    ON votes (restaurant, user, date_time)

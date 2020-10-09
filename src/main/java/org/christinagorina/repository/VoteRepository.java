@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface VoteRepository {
-    Votes save(Votes vote, int restaurantId);
+    Votes save(Votes vote, int restaurantId, int userId);
 
     List<Votes> getAllByDateAndRestaurant(int restaurantId, LocalDateTime fromDate, LocalDateTime toDate);
 

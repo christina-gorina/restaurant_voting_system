@@ -33,9 +33,10 @@ public class VoteController {
         if (result.hasErrors()) {
             throw new IllegalRequestDataException(ValidationUtil.getErrorResponse(result));
         }
-        Votes created = service.create(vote, restaurantId);
+        int userId = SecurityUtil.authUserId();
+        Votes created = service.create(vote, restaurantId, userId);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path(REST_URL_USER + "/{restaurantId}/{id}")
+                .path(REST_URL_USER + "/{restaurantId}")
                 .buildAndExpand(created.getId()).toUri();
         return ResponseEntity.created(uriOfNewResource).body(created);
     }
@@ -43,8 +44,9 @@ public class VoteController {
     @PutMapping(value = "/{restaurantId}/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void update(@RequestBody Votes vote, @PathVariable int restaurantId, @PathVariable int id) {
+        int userId = SecurityUtil.authUserId();
         assureIdConsistent(vote, id);
-        service.update(vote, restaurantId);
+        service.update(vote, restaurantId, userId);
     }
 
     @GetMapping("/{restaurantId}/{id}")
@@ -56,6 +58,7 @@ public class VoteController {
     public List<Votes> getByDateAndRestaurant(@PathVariable int restaurantId, @PathVariable  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime curDate) {
         return service.getByDateAndRestaurant(restaurantId, curDate.toLocalDate());
     }
+
 }
 
 

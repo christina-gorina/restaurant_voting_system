@@ -7,17 +7,17 @@ DELETE FROM users;
 ALTER SEQUENCE global_seq RESTART WITH 100000;
 
 INSERT INTO users (name, email, password)
-VALUES ('Admin', 'admin@gmail.com', 'admpassword'),
-       ('User1', 'user1@gmail.com', 'password'),
-       ('User2', 'user2@gmail.com', 'password'),
-       ('User3', 'user3@gmail.com', 'password'),
-       ('User4', 'user4@gmail.com', 'password'),
-       ('User5', 'user5@gmail.com', 'password'),
-       ('User6', 'user6@gmail.com', 'password'),
-       ('User7', 'user7@gmail.com', 'password'),
-       ('User8', 'user8@gmail.com', 'password'),
-       ('User9', 'user9@gmail.com', 'password'),
-       ('User10', 'user10@gmail.com', 'password');
+VALUES ('Admin', 'admin@gmail.com', '{noop}admpassword'),
+       ('User1', 'user1@gmail.com', '{noop}password'),
+       ('User2', 'user2@gmail.com', '{noop}password'),
+       ('User3', 'user3@gmail.com', '{noop}password'),
+       ('User4', 'user4@gmail.com', '{noop}password'),
+       ('User5', 'user5@gmail.com', '{noop}password'),
+       ('User6', 'user6@gmail.com', '{noop}password'),
+       ('User7', 'user7@gmail.com', '{noop}password'),
+       ('User8', 'user8@gmail.com', '{noop}password'),
+       ('User9', 'user9@gmail.com', '{noop}password'),
+       ('User10', 'user10@gmail.com', '{noop}password');
 
 INSERT INTO user_roles (role, user_id)
 VALUES ('ADMIN', 100000),

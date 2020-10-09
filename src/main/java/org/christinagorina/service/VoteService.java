@@ -19,14 +19,14 @@ public class VoteService {
         this.repository = repository;
     }
 
-    public Votes create(Votes vote, int restaurantId) {
+    public Votes create(Votes vote, int restaurantId, int userId) {
         Assert.notNull(vote, "vote must not be null");
-        return repository.save(vote, restaurantId);
+        return repository.save(vote, restaurantId, userId);
     }
 
-    public void update(Votes vote, int restaurantId) {
+    public void update(Votes vote, int restaurantId, int userId) {
         Assert.notNull(vote, "vote must not be null");
-        checkNotFoundWithId(repository.save(vote, restaurantId), vote.id());
+        checkNotFoundWithId(repository.save(vote, restaurantId, userId), vote.id());
     }
 
     public Votes get(int id, int restaurantId) {
