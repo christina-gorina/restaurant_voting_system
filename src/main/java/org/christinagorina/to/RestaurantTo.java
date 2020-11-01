@@ -20,6 +20,8 @@ public class RestaurantTo extends BaseTo {
         this.countOfVotes = countOfVotes;
     }
 
+    public RestaurantTo(){};
+
     public String getName() {
         return name;
     }
@@ -49,6 +51,9 @@ public class RestaurantTo extends BaseTo {
         return "RestaurantTo{" +
                 "id=" + id +
                 ", name=" + name +
+                ", dishes=" + dishes +
+                ", date=" + date +
+                ", countOfVotes=" + countOfVotes +
                 '}';
     }
 

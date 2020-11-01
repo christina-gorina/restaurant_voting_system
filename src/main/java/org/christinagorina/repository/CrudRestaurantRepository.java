@@ -21,7 +21,7 @@ public interface CrudRestaurantRepository extends JpaRepository<Restaurant, Inte
     @Query("SELECT r FROM Restaurant r JOIN FETCH r.votes vote WHERE vote.dateTime >=?1 AND vote.dateTime <?2 ORDER BY r.name DESC")
     Set<Restaurant> getAllWithVotesByDate(LocalDateTime fromDate, LocalDateTime toDate);
 
-    @Query("SELECT r FROM Restaurant r JOIN FETCH r.dishes dish WHERE dish.date =?1 ORDER BY r.name DESC")
+    @Query("SELECT r FROM Restaurant r JOIN FETCH r.dishes dish WHERE dish.date =?1 ORDER BY r.id ASC")
     Set<Restaurant> getAllWithDishesByDate(LocalDate date);
 
     @Query("SELECT r FROM Restaurant r JOIN FETCH r.dishes dish WHERE r.id=?1 AND dish.date=?2 ORDER BY r.name DESC")

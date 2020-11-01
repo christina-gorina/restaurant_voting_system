@@ -12,7 +12,7 @@ import java.util.Set;
 
 @Repository
 public class RestaurantRepositoryImpl implements RestaurantRepository {
-    private static final Sort SORT_BY_NAME = Sort.by("name");
+    private static final Sort SORT_BY_ID = Sort.by("id");
     private final CrudRestaurantRepository crudRestaurantRepository;
 
     public RestaurantRepositoryImpl(CrudRestaurantRepository crudRestaurantRepository) {
@@ -21,7 +21,7 @@ public class RestaurantRepositoryImpl implements RestaurantRepository {
 
     @Override
     public List<Restaurant> getAll() {
-        return crudRestaurantRepository.findAll(SORT_BY_NAME);
+        return crudRestaurantRepository.findAll(SORT_BY_ID);
     }
 
     @Override

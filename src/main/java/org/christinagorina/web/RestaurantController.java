@@ -26,8 +26,8 @@ import static org.christinagorina.util.ValidationUtil.*;
 @RestController
 @RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 public class RestaurantController {
-    static final String REST_URL_ADMIN = "/rest/admin/restaurants";
-    static final String REST_URL_USER = "/rest/user/restaurants";
+    public static final String REST_URL_ADMIN = "/rest/admin/restaurants";
+    public static final String REST_URL_USER = "/rest/user/restaurants";
 
     @Autowired
     private RestaurantService service;

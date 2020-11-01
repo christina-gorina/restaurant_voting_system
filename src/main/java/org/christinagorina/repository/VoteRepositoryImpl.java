@@ -22,23 +22,32 @@ public class VoteRepositoryImpl implements VoteRepository{
     @Override
     @Transactional
     public Votes save(Votes vote, int restaurantId, int userId) {
-        if (!vote.isNew() && get(vote.getId(), restaurantId) == null) {
+        if (!vote.isNew() && get(vote.getId()) == null) {
             return null;
         }
+        vote.setDateTime(LocalDateTime.now());
         vote.setRestaurant(crudRestaurantRepository.getOne(restaurantId));
         vote.setUser(crudUserRepository.getOne(userId));
         return crudVoteRepository.save(vote);
     }
 
     @Override
-    public Votes get(int id, int restaurantId){
-        return crudVoteRepository.findById(id)
-                .filter(vote -> vote.getRestaurant().getId() == restaurantId)
-                .orElse(null);
+    public Votes get(int id){
+        return crudVoteRepository.findById(id).orElse(null);
     };
 
     @Override
     public List<Votes> getAllByDateAndRestaurant(int restaurantId, LocalDateTime fromDate, LocalDateTime toDate) {
         return crudVoteRepository.getByDateAndRestaurant(restaurantId, fromDate, toDate);
+    }
+
+    @Override
+    public Votes getByUserAndDate(int userId, LocalDateTime fromDate, LocalDateTime toDate) {
+        return crudVoteRepository.getByUserAndDate(userId, fromDate, toDate);
+    }
+
+    @Override
+    public boolean delete(int id, int userId) {
+        return crudVoteRepository.delete(id, userId) != 0;
     }
 }

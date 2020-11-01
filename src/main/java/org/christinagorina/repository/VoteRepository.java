@@ -10,5 +10,9 @@ public interface VoteRepository {
 
     List<Votes> getAllByDateAndRestaurant(int restaurantId, LocalDateTime fromDate, LocalDateTime toDate);
 
-    Votes get(int id, int restaurantId);
+    Votes getByUserAndDate(int userId, LocalDateTime fromDate, LocalDateTime toDate);
+
+    Votes get(int id);
+
+    boolean delete(int id, int userId);
 }

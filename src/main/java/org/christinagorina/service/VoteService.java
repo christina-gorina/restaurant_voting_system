@@ -29,11 +29,19 @@ public class VoteService {
         checkNotFoundWithId(repository.save(vote, restaurantId, userId), vote.id());
     }
 
-    public Votes get(int id, int restaurantId) {
-        return checkNotFoundWithId(repository.get(id, restaurantId), id);
+    public Votes get(int id) {
+        return checkNotFoundWithId(repository.get(id), id);
     }
 
     public List<Votes> getByDateAndRestaurant(int restaurantId, LocalDate date) {
         return repository.getAllByDateAndRestaurant(restaurantId, DateTimeUtil.atStartOfDay(date), DateTimeUtil.atStartOfNextDay(date));
+    }
+
+    public Votes getByUserAndDate(int userId, LocalDate date) {
+        return repository.getByUserAndDate(userId, DateTimeUtil.atStartOfDay(date), DateTimeUtil.atStartOfNextDay(date));
+    }
+
+    public void delete(int id, int userId) {
+        checkNotFoundWithId(repository.delete(id, userId), id);
     }
 }
